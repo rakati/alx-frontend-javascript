@@ -1,17 +1,18 @@
-import { uploadPhoto, createUser } from './utils';
+import { uploadPhoto, createUser } from './utils.js'
 
 export default function handleProfileSignup() {
-  createUser()
-    .then((user) => {
-      uploadPhoto()
-        .then((photo) => {
-          console.log(`${photo.body} ${user.firstName} ${user.lastName}`);
-        })
-        .catch(() => {
-          console.error('Signup system offline');
-        });
+  uploadPhoto()
+    .then((photo) => {
+      process.stdout.write(photo.body + ' ');
     })
     .catch(() => {
-      console.error('Signup system offline');
+      console.log('Signup system offline');
+    });
+  createUser()
+    .then((user) => {
+      console.log(user.firstName + ' ' + user.lastName);
+    })
+    .catch(() => {
+      console.log('Signup system offline');
     });
 }
